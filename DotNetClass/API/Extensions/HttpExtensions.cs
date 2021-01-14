@@ -15,5 +15,9 @@ namespace API.Extensions
             response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
 
         }
+
+        public static void AddPaginationHeader<T>(this HttpResponse response, PagedList<T> pagedList){
+            AddPaginationHeader(response, pagedList.CurrentPage, pagedList.PageSize, pagedList.TotalCount, pagedList.TotalPages);
+        }
     }
 }

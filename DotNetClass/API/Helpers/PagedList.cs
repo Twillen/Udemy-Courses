@@ -29,5 +29,9 @@ namespace API.Helpers
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
+
+        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, PaginationParams pParams){
+            return await CreateAsync(source, pParams.PageNumber, pParams.PageSize);
+        }
     }
 }
