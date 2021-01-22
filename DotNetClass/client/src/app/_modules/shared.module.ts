@@ -28,7 +28,7 @@ import { TimeagoModule } from 'ngx-timeago';
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot()
-    
+
   ],
   exports: [
     BsDropdownModule,

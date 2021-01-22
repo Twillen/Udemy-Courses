@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from './user';
 
 export class UserParams {
     gender: string;
@@ -10,6 +10,6 @@ export class UserParams {
 
     constructor(user: User){
         this.gender = user.gender === 'female' ? 'male' : 'female';
-        
+
     }
 }
