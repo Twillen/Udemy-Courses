@@ -17,13 +17,11 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersWithRoles();
-    console.log(this.users);
   }
 
   getUsersWithRoles(){
     this.adminService.getUsersWithRoles().subscribe(users => {
       this.users = users;
-      console.log(users);
     })
   }
 
