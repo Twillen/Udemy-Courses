@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
@@ -8,13 +8,13 @@ import { MessageService } from 'src/app/_services/message.service';
   templateUrl: './member-messages.component.html',
   styleUrls: ['./member-messages.component.css']
 })
-export class MemberMessagesComponent implements OnInit {
+export class MemberMessagesComponent implements OnInit, AfterViewChecked  {
   @ViewChild('messageForm') messageForm: NgForm;
   @Input() messages: Message[];
   @Input() username: string;
   messageContent: string;
 
-  constructor(public messageService: MessageService) { }
+  constructor(public messageService: MessageService, private readonly changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +23,10 @@ export class MemberMessagesComponent implements OnInit {
     this.messageService.sendMessage(this.username, this.messageContent).then(() => {
       this.messageForm.reset();
     });
+  }
+
+  ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
   }
 
 }
