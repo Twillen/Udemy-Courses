@@ -28,35 +28,35 @@ export class MessageService {
       })
       .withAutomaticReconnect()
       .build();
-    
+
     this.hubConnection.start().catch(error => console.log(error));
 
-    this.hubConnection.on('ReceiveMessageThread', messages =>{
+    this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
     });
 
     this.hubConnection.on('NewMessage', message => {
-      this.messageThread$.pipe(take(1)).subscribe(messages =>{
-        this.messageThreadSource.next([...messages, message])
-      })
-    })
+      this.messageThread$.pipe(take(1)).subscribe(messages => {
+        this.messageThreadSource.next([...messages, message]);
+      });
+    });
 
-    this.hubConnection.on("UpdatedGroup", (group: Group) => {
-      if(group.connections.some(x => x.username === otherUsername)){
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
+      if (group.connections.some(x => x.username === otherUsername)){
         this.messageThread$.pipe(take(1)).subscribe(messages => {
           messages.forEach(message => {
-            if(!message.dateRead){
+            if (!message.dateRead){
               message.dateRead = new Date(Date.now());
             }
-          })
+          });
           this.messageThreadSource.next([...messages]);
-        })
+        });
       }
-    })
+    });
   }
 
   stopHubConnection(){
-    if(this.hubConnection){
+    if (this.hubConnection){
       this.hubConnection.stop();
     }
   }

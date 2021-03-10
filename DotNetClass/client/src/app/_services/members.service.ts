@@ -44,7 +44,7 @@ export class MembersService {
   getMembers(userParams: UserParams){
     const cacheKey = Object.values(userParams).join('-');
     console.log(cacheKey);
-    let response = this.memberCache.get(cacheKey);
+    const response = this.memberCache.get(cacheKey);
     if (response) { return of(response); }
     let params = getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
     params = params.append('minAge', userParams.minAge.toString());

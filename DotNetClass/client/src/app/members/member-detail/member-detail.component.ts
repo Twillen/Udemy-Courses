@@ -26,9 +26,9 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   messages: Message[] = [];
   user: User;
 
-  constructor(public presence: PresenceService, private route: ActivatedRoute, 
-    private messageService: MessageService, private accountService: AccountService,
-    private router: Router) { 
+  constructor(public presence: PresenceService, private route: ActivatedRoute,
+              private messageService: MessageService, private accountService: AccountService,
+              private router: Router) {
       this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -83,7 +83,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
       this.messageService.stopHubConnection();
     }
   }
-  
+
   ngOnDestroy(): void {
     this.messageService.stopHubConnection();
   }

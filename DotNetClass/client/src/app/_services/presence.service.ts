@@ -29,29 +29,29 @@ export class PresenceService {
     this.hubConnection
       .start()
       .catch(error => console.log(error));
-    
+
     this.hubConnection.on('UserIsOnline', username => {
       this.onlineUsers$.pipe(take(1)).subscribe(userNames => {
-        this.onlineUsersSource.next([... userNames, username])
-      })
-    })
+        this.onlineUsersSource.next([... userNames, username]);
+      });
+    });
 
     this.hubConnection.on('UserIsOffline', username => {
       this.onlineUsers$.pipe(take(1)).subscribe(userNames => {
-        this.onlineUsersSource.next([... userNames.filter(x => x !== username)])
-      })
-    })
-    
+        this.onlineUsersSource.next([... userNames.filter(x => x !== username)]);
+      });
+    });
+
     this.hubConnection.on('GetOnlineusers', (usernames: string[]) => {
       this.onlineUsersSource.next(usernames);
-    })
+    });
 
-    this.hubConnection.on('NewMessageReceived', ({userName, knownAs}) =>{
+    this.hubConnection.on('NewMessageReceived', ({userName, knownAs}) => {
       this.toastr.info(knownAs + ' has sent you a new message!')
         .onTap
         .pipe(take(1))
-        .subscribe(() => this.router.navigateByUrl("/members/" + userName + "?tab=3"));
-    })
+        .subscribe(() => this.router.navigateByUrl('/members/' + userName + '?tab=3'));
+    });
   }
 
   stopHubConnection() {

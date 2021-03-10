@@ -22,7 +22,7 @@ export class UserManagementComponent implements OnInit {
   getUsersWithRoles(){
     this.adminService.getUsersWithRoles().subscribe(users => {
       this.users = users;
-    })
+    });
   }
 
   openRolesModal(user: User){
@@ -38,13 +38,13 @@ export class UserManagementComponent implements OnInit {
       const rolesToUpdate = {
         roles: [...values.filter(el => el.checked === true).map(el => el.name)]
       };
-      if(rolesToUpdate){
-        this.adminService.updateUserRoles(user.userName, rolesToUpdate.roles).subscribe(() =>{
-          user.roles = [... rolesToUpdate.roles]
-        })
+      if (rolesToUpdate){
+        this.adminService.updateUserRoles(user.userName, rolesToUpdate.roles).subscribe(() => {
+          user.roles = [... rolesToUpdate.roles];
+        });
       }
     });
-    ;
+    
   }
 
   private getRolesArray(user) {
@@ -59,19 +59,19 @@ export class UserManagementComponent implements OnInit {
     availableRoles.forEach(role => {
       let isMatch = false;
       console.log(role);
-      for(const userRole of userRoles){
-        if(role.name === userRole){
+      for (const userRole of userRoles){
+        if (role.name === userRole){
           isMatch = true;
           role.checked = true;
           roles.push(role);
           break;
         }
       }
-      if(!isMatch){
+      if (!isMatch){
         role.checked = false;
         roles.push(role);
       }
-    })
+    });
     return roles;
   }
 
